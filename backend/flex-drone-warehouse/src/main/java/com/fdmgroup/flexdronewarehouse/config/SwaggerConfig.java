@@ -39,7 +39,7 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
      */
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
-                .title("Flex-drone warehouse - API Documentation")
+                .title("Flex-Drone Warehouse - API Documentation")
                 .version("1.1.0")
                 .license("Apache 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
