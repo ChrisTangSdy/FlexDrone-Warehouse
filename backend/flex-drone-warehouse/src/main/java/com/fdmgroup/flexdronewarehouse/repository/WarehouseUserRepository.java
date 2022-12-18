@@ -12,5 +12,6 @@ import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
  */
 @Repository
 public interface WarehouseUserRepository extends JpaRepository<WarehouseUser, Long> {
+	
 
 }
