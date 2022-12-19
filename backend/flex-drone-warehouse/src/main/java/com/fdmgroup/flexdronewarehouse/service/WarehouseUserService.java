@@ -25,6 +25,16 @@ public class WarehouseUserService {
 	private final WarehouseUserRepository warehouseUserRepo;
 
 	/**
+	 * Persists WarehouseUser into database
+	 * 
+	 * @param user
+	 * @return persisted WarehouseUser
+	 */
+	public WarehouseUser save(WarehouseUser user) {
+		return warehouseUserRepo.save(user);
+	}
+	
+	/**
 	 * Retrieve a Warehouse user from the database using their id.
 	 * 
 	 * @param id
