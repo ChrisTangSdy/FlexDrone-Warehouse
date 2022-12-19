@@ -11,9 +11,14 @@ export default function SidebarMenu() {
         </Sidebar.Header>
         <Sidebar.Body>
           <Sidebar.Nav>
-            <Sidebar.Nav.Link eventKey="menu_title">
+            <Sidebar.Nav.Link href="/" eventKey="menu_title">
               <Sidebar.Nav.Icon>1</Sidebar.Nav.Icon>
               <Sidebar.Nav.Title>Home</Sidebar.Nav.Title>
+            </Sidebar.Nav.Link>
+
+            <Sidebar.Nav.Link href="/ViewUser" eventKey="menu_title">
+              <Sidebar.Nav.Icon>1</Sidebar.Nav.Icon>
+              <Sidebar.Nav.Title>User Profile</Sidebar.Nav.Title>
             </Sidebar.Nav.Link>
 
             {/* leaving this code in for now in case we want to add submenus to the sidebar

@@ -1,4 +1,5 @@
 import "./assets/styles.scss";
+
 import React from "react";
 import SidebarMenu from "./components/SidebarMenu";
 import Main from "./components/Main";

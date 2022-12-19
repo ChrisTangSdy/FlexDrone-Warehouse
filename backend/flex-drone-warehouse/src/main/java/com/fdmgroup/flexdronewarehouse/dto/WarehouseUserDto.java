@@ -26,14 +26,5 @@ public class WarehouseUserDto {
 
     private String role;
     
-    public WarehouseUserDto warehouseUserToDto(WarehouseUser warehouseUser) {
-    	WarehouseUserDto warehouseDto = new WarehouseUserDto();
-    	warehouseDto.setId(warehouseUser.getId());
-    	warehouseDto.setUsername(warehouseUser.getUsername());
-    	warehouseDto.setEmail(warehouseUser.getEmail());
-    	warehouseDto.setFirstName(warehouseUser.getFirstName());
-    	warehouseDto.setLastName(warehouseUser.getLastName());
-		return warehouseDto;
-    }
 
 }
