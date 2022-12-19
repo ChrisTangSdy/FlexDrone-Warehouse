@@ -1,6 +1,5 @@
 package com.fdmgroup.flexdronewarehouse.controller;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +29,24 @@ public class WarehouseUserController {
 	private final WarehouseUserService warehouseUserService;
 	private final ModelToDTO modelToDTO;
 	
+	/**
+	 * API to get a Warehouse user using their ID
+	 * 
+	 * @param id - WarehouseUserId
+	 * @return WarehouseUserDTO of the found User
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<WarehouseUserDto> getUserById(@PathVariable long id){
 		
 		return new ResponseEntity<>( modelToDTO.userToOutput(warehouseUserService.findUserById(id)), HttpStatus.OK);
 	}
 
+	/**
+	 * API to change a Warehouse users password using their ID
+	 * 
+	 * @param id - WarehouseUserId
+	 * @return WarehouseUserDTO with updated password (Note: password is not part of the DTO)
+	 */
 	@PutMapping("/{id}/password")
 	public ResponseEntity<WarehouseUserDto> changePasswordById(@PathVariable long id, @RequestBody String newPass){
 		WarehouseUser user = warehouseUserService.changePasswordById(id, newPass);

@@ -24,6 +24,12 @@ public class WarehouseUserService {
 
 	private final WarehouseUserRepository warehouseUserRepo;
 
+	/**
+	 * Retrieve a Warehouse user from the database using their id.
+	 * 
+	 * @param id
+	 * @return WarehouseUser with the given id
+	 */
 	public WarehouseUser findUserById(long id) {
 		Optional<WarehouseUser> user = warehouseUserRepo.findById(id);
 		if (user.isEmpty()) {
@@ -32,6 +38,13 @@ public class WarehouseUserService {
 		return user.get();
 	}
 
+	/**
+	 * Change the password of Warehouse user using their id.
+	 * 
+	 * @param id
+	 * @param newPass - new password
+	 * @return WarehouseUser with the given id
+	 */
 	public WarehouseUser changePasswordById(long id, String newPass) {
 		WarehouseUser user = findUserById(id);
 		

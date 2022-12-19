@@ -12,6 +12,10 @@ public class ModelToDTO {
 
     private ModelMapper modelMapper;
     
+    /**
+     * Mapper configuration.
+     * @param modelMapper ModelMapper.
+     */
     @Autowired
     public ModelToDTO(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
@@ -24,7 +28,11 @@ public class ModelToDTO {
 	        .addMapping(WarehouseUser::getEmail, WarehouseUserDto::setEmail);
     }
     
-
+    /**
+     * Map WarehouseUser to WarehouseUserDTO
+     * @param user
+     * @return WarehouseUserDTO
+     */
     public WarehouseUserDto userToOutput(WarehouseUser user){
         return modelMapper.map(user, WarehouseUserDto.class);
     }
