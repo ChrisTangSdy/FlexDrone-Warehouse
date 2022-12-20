@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fdmgroup.flexdronewarehouse.dto.StringDto;
 import com.fdmgroup.flexdronewarehouse.dto.WarehouseUserDto;
 import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
 import com.fdmgroup.flexdronewarehouse.service.WarehouseUserService;
@@ -48,10 +49,10 @@ public class WarehouseUserController {
 	 * @return WarehouseUserDTO with updated password (Note: password is not part of the DTO)
 	 */
 	@PutMapping("/{id}/password")
-	public ResponseEntity<WarehouseUserDto> changePasswordById(@PathVariable long id, @RequestBody String newPass){
-		WarehouseUser user = warehouseUserService.changePasswordById(id, newPass);
+	public ResponseEntity<String> changePasswordById(@PathVariable long id, @RequestBody StringDto newPass){
+		WarehouseUser user = warehouseUserService.changePasswordById(id, newPass.getText());
 		
-		return new ResponseEntity<>( modelToDTO.userToOutput(user), HttpStatus.OK);
+		return new ResponseEntity<>( "Password Successfully Changed", HttpStatus.OK);
 	}
 
 }
