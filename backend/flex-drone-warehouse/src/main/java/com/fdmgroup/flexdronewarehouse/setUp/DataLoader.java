@@ -43,6 +43,10 @@ public class DataLoader implements ApplicationRunner {
         john.setRole(Role.WAREHOUSE_USER);
         warehouseUserService.save(john);
         log.info("register John success");
+        
+    	WarehouseUser user = new WarehouseUser(0, "yuttaFDM", "HelloWorld!", "yutta@fdmgroup.com", "yutta", "karima", Role.WAREHOUSE_MANAGER);
+    	warehouseUserService.save(user);
+        log.info("Finished setup");
     }
 
 }

@@ -35,8 +35,8 @@ public class SecurityConfig {
 
     /**
      * This class sets up spring security filters
-     * @param http
-     * @return
+     * @param http httpSecurity object which is used to change security filter chain
+     * @return a security chain that contains multiple filters
      * @throws Exception
      */
     @Bean
