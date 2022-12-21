@@ -4,19 +4,20 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.fdmgroup.flexdronewarehouse.exception.NotEnoughAccessRightException;
 import com.fdmgroup.flexdronewarehouse.exception.UserNotFoundException;
 import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
+import com.fdmgroup.flexdronewarehouse.util.WarehouseUserDetails;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.fdmgroup.flexdronewarehouse.exception.UserNotFoundException;
-import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
 import com.fdmgroup.flexdronewarehouse.repository.WarehouseUserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
 
 /**
  * Warehouse User Service
@@ -35,7 +36,7 @@ public class WarehouseUserService {
 	/**
 	 * Persists WarehouseUser into database
 	 * 
-	 * @param user
+	 * @param warehouseUser
 	 * @return persisted WarehouseUser
 	 */
 	public WarehouseUser save(WarehouseUser warehouseUser) {
@@ -73,6 +74,12 @@ public class WarehouseUserService {
 		return warehouseUserRepo.save(user);
 	}
 
+	/**
+	 * Get warehouse User by usernames
+	 *
+	 * @param username username
+	 * @return warehouseUser object
+	 */
 	public WarehouseUser getWarehouseUserByUsername(String username){
 		Optional<WarehouseUser> warehouseUser = warehouseUserRepo.findUserByUsername(username);
 		if(warehouseUser.isEmpty()){
@@ -81,11 +88,24 @@ public class WarehouseUserService {
 		return warehouseUser.get();
 	}
 
-//	public void save(WarehouseUser warehouseUser){
-//		warehouseUser.setPassword(passwordEncoder.encode(warehouseUser.getPassword()));
-//		warehouseUserRepo.save(warehouseUser);
-//	}
-	
+	/**
+	 * Check whether the password from frontend is the same as the backend
+	 * @param password
+	 * @param warehouseUserId
+	 * @return
+	 */
+	public Boolean checkPassword(String password, Long warehouseUserId){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		WarehouseUserDetails userDetails = (WarehouseUserDetails) authentication.getPrincipal();
+
+		if (userDetails == null) throw new UserNotFoundException();
+
+		if(warehouseUserId != userDetails.getId()) throw new NotEnoughAccessRightException("Access Denied");
+
+		return passwordEncoder.matches(password,userDetails.getPassword());
+
+	}
+
 	
 	
 }

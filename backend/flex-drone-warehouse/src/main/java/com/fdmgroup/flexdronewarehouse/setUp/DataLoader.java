@@ -14,6 +14,11 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
+/**
+ * Set up predefine data and store them in database
+ *
+ * @author Chris
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j

@@ -34,12 +34,11 @@ public class AuthenticationController {
     @PostMapping(LOGIN)
     public ResponseEntity<String> LogIn(@Valid @RequestBody LogInRequestDto request){
 
-
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
         final WarehouseUserDetails warehouseUser = (WarehouseUserDetails) authentication.getPrincipal();
 
-        return warehouseUser != null ? ResponseEntity.ok(jwtUtils.generateToken(warehouseUser)): ResponseEntity.status(401).body("Bad Authentication");
-
+//        return warehouseUser != null ? ResponseEntity.ok(jwtUtils.generateToken(warehouseUser)): ResponseEntity.status(401).body("Bad Authentication");
+          return ResponseEntity.ok(jwtUtils.generateToken(warehouseUser));
     }
 }

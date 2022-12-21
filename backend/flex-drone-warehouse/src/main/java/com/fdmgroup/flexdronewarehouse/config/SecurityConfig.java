@@ -35,8 +35,8 @@ public class SecurityConfig {
 
     /**
      * This class sets up spring security filters
-     * @param http
-     * @return
+     * @param http httpSecurity object which is used to change security filter chain
+     * @return a security chain that contains multiple filters
      * @throws Exception
      */
     @Bean
@@ -45,6 +45,7 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/warehouse-users/**").hasAnyAuthority("WAREHOUSE_MANAGER","WAREHOUSE_USER")
                 .antMatchers("/greeting").hasAuthority("WAREHOUSE_MANAGER")
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
 

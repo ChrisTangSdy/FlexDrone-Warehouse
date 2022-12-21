@@ -1,21 +1,22 @@
 package com.fdmgroup.flexdronewarehouse.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.fdmgroup.flexdronewarehouse.dto.StringDto;
+import com.fdmgroup.flexdronewarehouse.util.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 import com.fdmgroup.flexdronewarehouse.dto.WarehouseUserDto;
 import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
 import com.fdmgroup.flexdronewarehouse.service.WarehouseUserService;
 import com.fdmgroup.flexdronewarehouse.util.ModelToDTO;
 
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.Valid;
+
 /**
  * User CRUD operations.
  * @author Indrayutta, Summer
@@ -24,11 +25,16 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/warehouse-users")
 public class WarehouseUserController {
 	
 	private final WarehouseUserService warehouseUserService;
+
+	private final PasswordEncoder passwordEncoder;
+
 	private final ModelToDTO modelToDTO;
+
 	
 	/**
 	 * API to get a Warehouse user using their ID
@@ -40,6 +46,22 @@ public class WarehouseUserController {
 	public ResponseEntity<WarehouseUserDto> getUserById(@PathVariable long id){
 		
 		return new ResponseEntity<>( modelToDTO.userToOutput(warehouseUserService.findUserById(id)), HttpStatus.OK);
+	}
+
+
+	/**
+	 * API to check whether the password from frontend equals the password in the backend
+	 * @param password password from the frontend
+	 * @param warehouseUserId userId
+	 * @return apiResponse
+	 */
+	@PostMapping("/{warehouseUserId}/checkPassword")
+	public ResponseEntity<ApiResponse> checkPassword(@Valid @RequestBody StringDto password, @Valid @PathVariable Long warehouseUserId){
+
+		return warehouseUserService.checkPassword(password.getText(),warehouseUserId) ?
+				new ResponseEntity<>(new ApiResponse(true, "Match"), HttpStatus.OK) :
+                 new ResponseEntity<>(new ApiResponse(false, "Do Not Match"), HttpStatus.OK);
+
 	}
 
 	/**
