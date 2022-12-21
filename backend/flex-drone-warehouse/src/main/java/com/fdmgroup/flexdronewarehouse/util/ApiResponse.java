@@ -6,8 +6,8 @@ import java.util.Objects;
  * This class defines Api response object which will be sent as Json object to front end
  * It has two fields success and message,
  * Success is boolean value that indicates whether operation status is successful or not,
- * For example, the request is delete a category, and it succeeded.
- * then success = true, message= "successfully Delete a category"
+ *
+ * @author Chris
  */
 
 public class ApiResponse {
