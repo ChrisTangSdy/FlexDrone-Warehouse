@@ -2,6 +2,7 @@ import Sidebar from "react-bootstrap-sidebar-menu";
 
 export default function SidebarMenu() {
   const theme = "dark";
+
   return (
     <Sidebar variant={theme} bg={theme} expand="sm">
       <Sidebar.Collapse>
@@ -28,14 +29,20 @@ export default function SidebarMenu() {
                   </Sidebar.Nav.Link>
                 </Sidebar.Nav>
                 <Sidebar.Nav>
-                  <Sidebar.Nav.Link href="/ChangePassword" eventKey="menu_title">
+                  <Sidebar.Nav.Link
+                    href="/ChangePassword"
+                    eventKey="menu_title"
+                  >
                     <Sidebar.Nav.Icon>1.2</Sidebar.Nav.Icon>
                     <Sidebar.Nav.Title>Change Password</Sidebar.Nav.Title>
                   </Sidebar.Nav.Link>
                 </Sidebar.Nav>
               </Sidebar.Sub.Collapse>
             </Sidebar.Sub>
-
+            <Sidebar.Nav.Link href="/Login" eventKey="menu_title">
+              <Sidebar.Nav.Icon>1</Sidebar.Nav.Icon>
+              <Sidebar.Nav.Title>Login</Sidebar.Nav.Title>
+            </Sidebar.Nav.Link>
 
             {/* leaving this code in for now in case we want to add submenus to the sidebar */}
             {/* <Sidebar.Sub eventKey={0}>
