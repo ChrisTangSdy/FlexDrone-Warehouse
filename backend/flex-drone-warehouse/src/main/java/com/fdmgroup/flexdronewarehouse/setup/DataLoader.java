@@ -1,63 +1,57 @@
-package com.fdmgroup.flexdronewarehouse.setup;
+package com.fdmgroup.flexdronewarehouse.setUp;
 
 
-import javax.transaction.Transactional;
+import com.fdmgroup.flexdronewarehouse.model.Role;
+import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
+import com.fdmgroup.flexdronewarehouse.service.WarehouseUserService;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Component;
 
-import com.fdmgroup.flexdronewarehouse.model.Product;
-import com.fdmgroup.flexdronewarehouse.service.ProductService;
+import javax.transaction.Transactional;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
+/**
+ * Set up predefine data and store them in database
+ *
+ * @author Chris
+ */
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class DataLoader implements ApplicationRunner{
-	
-	private final ProductService productService;
-	
-	@Override
-	@Transactional
-	@Modifying
-	public void run(ApplicationArguments args) throws Exception{
-		
-		///// LOAD PRODUCTS /////
-		
-		Product p1 = new Product();
-		p1.setSku("skup1");
-		p1.setDescription("This is a camera");
-		p1.setRetailPrice((float) 5022);
-		p1.setCategory("CAMERA");
-		p1.setName("ABC Camera");
-		p1.setExternalStock(2);
-		p1.setInternalStock(10);
-		p1.setMinStockLevel(1);
-		p1.setPart(true);
-		p1.setExternalNote("Best Camera ever");
-		p1.setInternalNote("worst camera ever");
-		productService.save(p1);
-		
-		Product p2 = new Product();
-		p2.setSku("skup2");
-		p2.setDescription("This is a droneeee");
-		p2.setRetailPrice((float) 5022);
-		p2.setCategory("DRONE");
-		p2.setName("DRONEEEEEE");
-		p2.setExternalStock(20);
-		p2.setInternalStock(22);
-		p2.setMinStockLevel(10);
-		p2.setPart(false);
-		p2.setExternalNote("Best DRONE ever");
-		p2.setInternalNote("Safest option");
-		productService.save(p2);
-		
-		System.out.println("DATA LOADER DONE");
-		
-	}
+public class DataLoader implements ApplicationRunner {
+
+    private final WarehouseUserService warehouseUserService;
+    @Override
+    @Transactional
+    @Modifying
+    public void run(ApplicationArguments args) throws Exception {
+        WarehouseUser andrew = new WarehouseUser();
+        andrew.setUsername("Andrew");
+        andrew.setPassword("1");
+        andrew.setEmail("123@gmail.com");
+        andrew.setFirstName("Andrew");
+        andrew.setLastName("Tate");
+        andrew.setRole(Role.WAREHOUSE_MANAGER);
+        warehouseUserService.save(andrew);
+        log.info("register Andrew success");
+
+        WarehouseUser john = new WarehouseUser();
+        john.setUsername("John");
+        john.setPassword("1");
+        john.setEmail("john@gmail.com");
+        john.setFirstName("John");
+        john.setLastName("Boris");
+        john.setRole(Role.WAREHOUSE_USER);
+        warehouseUserService.save(john);
+        log.info("register John success");
+        
+    	WarehouseUser user = new WarehouseUser(0, "yuttaFDM", "HelloWorld!", "yutta@fdmgroup.com", "yutta", "karima", Role.WAREHOUSE_MANAGER);
+    	warehouseUserService.save(user);
+        log.info("Finished setup");
+    }
 
 }
