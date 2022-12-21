@@ -45,6 +45,7 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
+                .antMatchers("/warehouse-users/**").hasAnyAuthority("WAREHOUSE_MANAGER","WAREHOUSE_USER")
                 .antMatchers("/greeting").hasAuthority("WAREHOUSE_MANAGER")
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
 

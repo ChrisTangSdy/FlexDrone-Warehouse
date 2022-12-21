@@ -40,7 +40,10 @@ public class WarehouseUserService {
 		warehouseUser.setPassword(passwordEncoder.encode(warehouseUser.getPassword()));
 		warehouseUserRepo.save(warehouseUser);
 	}
-	
+
+	public void checkPasswordIntegrity(){
+
+	}
 	
 	
 }
