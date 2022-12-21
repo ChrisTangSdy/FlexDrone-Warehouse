@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
 
+import java.util.Optional;
+
 /**
  * Warehouse user repository
  * @author Indrayutta, Summer
@@ -12,5 +14,5 @@ import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
  */
 @Repository
 public interface WarehouseUserRepository extends JpaRepository<WarehouseUser, Long> {
-	
+    Optional<WarehouseUser> findUserByUsername(String username);
 }

@@ -4,6 +4,10 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.fdmgroup.flexdronewarehouse.exception.UserNotFoundException;
+import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.flexdronewarehouse.exception.UserNotFoundException;
@@ -11,6 +15,8 @@ import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
 import com.fdmgroup.flexdronewarehouse.repository.WarehouseUserRepository;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.Optional;
 
 /**
  * Warehouse User Service
@@ -20,9 +26,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class WarehouseUserService {
 
 	private final WarehouseUserRepository warehouseUserRepo;
+	private final PasswordEncoder passwordEncoder;
 
 	/**
 	 * Persists WarehouseUser into database
@@ -30,8 +38,9 @@ public class WarehouseUserService {
 	 * @param user
 	 * @return persisted WarehouseUser
 	 */
-	public WarehouseUser save(WarehouseUser user) {
-		return warehouseUserRepo.save(user);
+	public WarehouseUser save(WarehouseUser warehouseUser) {
+		warehouseUser.setPassword(passwordEncoder.encode(warehouseUser.getPassword()));
+		return warehouseUserRepo.save(warehouseUser);
 	}
 	
 	/**
@@ -63,6 +72,19 @@ public class WarehouseUserService {
 		
 		return warehouseUserRepo.save(user);
 	}
+
+	public WarehouseUser getWarehouseUserByUsername(String username){
+		Optional<WarehouseUser> warehouseUser = warehouseUserRepo.findUserByUsername(username);
+		if(warehouseUser.isEmpty()){
+			throw new UserNotFoundException();
+		}
+		return warehouseUser.get();
+	}
+
+//	public void save(WarehouseUser warehouseUser){
+//		warehouseUser.setPassword(passwordEncoder.encode(warehouseUser.getPassword()));
+//		warehouseUserRepo.save(warehouseUser);
+//	}
 	
 	
 	

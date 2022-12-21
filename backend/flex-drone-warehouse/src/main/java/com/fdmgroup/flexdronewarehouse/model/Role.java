@@ -7,6 +7,6 @@ package com.fdmgroup.flexdronewarehouse.model;
  *
  */
 public enum Role {
-	WAREHOUSE_MANAGER
+	WAREHOUSE_MANAGER, WAREHOUSE_USER
 
 }
