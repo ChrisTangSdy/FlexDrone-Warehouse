@@ -1,5 +1,12 @@
-package com.fdmgroup.flexdronewarehouse.setUp;
+package com.fdmgroup.flexdronewarehouse.setup;
 
+
+import javax.transaction.Transactional;
+
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Component;
 
 import com.fdmgroup.flexdronewarehouse.model.Role;
 import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
@@ -7,12 +14,6 @@ import com.fdmgroup.flexdronewarehouse.service.WarehouseUserService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.stereotype.Component;
-
-import javax.transaction.Transactional;
 
 /**
  * Set up predefine data and store them in database
