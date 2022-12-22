@@ -9,8 +9,6 @@ import com.fdmgroup.flexdronewarehouse.exception.UserNotFoundException;
 import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
 import com.fdmgroup.flexdronewarehouse.util.WarehouseUserDetails;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +67,7 @@ public class WarehouseUserService {
 		WarehouseUser user = findUserById(id);
 		
 		//TODO need a method to encrypt password
-		user.setPassword(newPass);
+		user.setPassword(passwordEncoder.encode(newPass));
 		
 		return warehouseUserRepo.save(user);
 	}
@@ -95,10 +93,8 @@ public class WarehouseUserService {
 	 * @return
 	 */
 	public Boolean checkPassword(String password, Long warehouseUserId){
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		WarehouseUserDetails userDetails = (WarehouseUserDetails) authentication.getPrincipal();
 
-		if (userDetails == null) throw new UserNotFoundException();
+		WarehouseUserDetails userDetails = WarehouseUserDetailsServiceImpl.getWarehouseUserDetails();
 
 		if(warehouseUserId != userDetails.getId()) throw new NotEnoughAccessRightException("Access Denied");
 
@@ -106,6 +102,7 @@ public class WarehouseUserService {
 
 	}
 
-	
-	
+
+
+
 }

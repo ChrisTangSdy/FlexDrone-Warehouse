@@ -1,9 +1,12 @@
 package com.fdmgroup.flexdronewarehouse.service;
 
+import com.fdmgroup.flexdronewarehouse.exception.UserNotFoundException;
 import com.fdmgroup.flexdronewarehouse.model.WarehouseUser;
 import com.fdmgroup.flexdronewarehouse.util.WarehouseUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -42,6 +45,14 @@ public class WarehouseUserDetailsServiceImpl implements UserDetailsService {
         warehouseUserDetails.setEmail(user.getEmail());
         warehouseUserDetails.setAuthorities(authorities);
         return warehouseUserDetails;
+    }
+
+    public static WarehouseUserDetails getWarehouseUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WarehouseUserDetails userDetails = (WarehouseUserDetails) authentication.getPrincipal();
+
+        if (userDetails == null) throw new UserNotFoundException();
+        return userDetails;
     }
 
 

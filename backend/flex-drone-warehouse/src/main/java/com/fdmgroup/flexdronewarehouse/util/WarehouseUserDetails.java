@@ -1,7 +1,10 @@
 package com.fdmgroup.flexdronewarehouse.util;
 
+import com.fdmgroup.flexdronewarehouse.exception.UserNotFoundException;
 import lombok.Data;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -43,5 +46,7 @@ public class WarehouseUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 
 }

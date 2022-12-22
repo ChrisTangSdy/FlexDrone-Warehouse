@@ -4,9 +4,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -19,6 +21,7 @@ import static java.util.Map.entry;
  * @author Chris
  */
 @Component
+@Slf4j
 public class JwtUtils {
 
     @Value("${app.jwt.secret}")
@@ -31,7 +34,16 @@ public class JwtUtils {
      * @return username
      */
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        String username = null;
+        try{
+            username = extractClaim(token, Claims::getSubject);
+        } catch (Exception e){
+            log.info(e.getMessage());
+        } finally {
+            return  username;
+        }
+
+
     }
 
     /**
@@ -74,6 +86,8 @@ public class JwtUtils {
      * @return
      */
     private Boolean isTokenExpired(String token) {
+
+
         return extractExpiration(token).before(new Date());
     }
 
