@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { apis } from '../../utils/apis.js';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Alert from 'react-bootstrap/Alert';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { apis } from "../../utils/apis.js";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Alert from "react-bootstrap/Alert";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showError, setShowError] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleSubmit = (event) => {
-    console.log('submit clicked');
+    console.log("submit clicked");
     let loginInfo = { username, password };
     apis
       .logIn(loginInfo)
       .then((res) => {
-        sessionStorage.setItem('token', res.data);
-        // document.location.href('/abc');
-        navigate('/ViewUser');
+        sessionStorage.setItem("token", res.data);
+        document.location.href = "/ViewUser";
       })
       .catch((e) => {
         setShowError(true);
@@ -29,34 +28,34 @@ const Login = () => {
   };
 
   return (
-    <Container style={{ 'padding-top': '30%' }}>
-      <Row className='justify-content-md-center '>
+    <Container style={{ "padding-top": "30%" }}>
+      <Row className="justify-content-md-center ">
         {/* <Col xs lg="2">
               1 of 3
             </Col> */}
         <Col lg={6}>
           <Form>
-            <Form.Group className='mb-3' controlId='formBasicPassword'>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Username</Form.Label>
               <Form.Control
-                type='text'
+                type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className='mb-3' controlId='formBasicPassword'>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type='password'
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-            <Alert key='danger' variant='danger' hidden={!showError}>
+            <Alert key="danger" variant="danger" hidden={!showError}>
               Your login details are incorrect!
             </Alert>
 
-            <Button variant='primary' onClick={handleSubmit}>
+            <Button variant="primary" onClick={handleSubmit}>
               Submit
             </Button>
           </Form>

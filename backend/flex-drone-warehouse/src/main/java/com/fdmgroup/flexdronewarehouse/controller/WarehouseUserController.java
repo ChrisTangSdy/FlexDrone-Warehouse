@@ -60,7 +60,7 @@ public class WarehouseUserController {
 
 		return warehouseUserService.checkPassword(password.getText(),warehouseUserId) ?
 				new ResponseEntity<>(new ApiResponse(true, "Match"), HttpStatus.OK) :
-                 new ResponseEntity<>(new ApiResponse(false, "Do Not Match"), HttpStatus.OK);
+                 new ResponseEntity<>(new ApiResponse(false, "Do Not Match"), HttpStatus.UNAUTHORIZED);
 
 	}
 
