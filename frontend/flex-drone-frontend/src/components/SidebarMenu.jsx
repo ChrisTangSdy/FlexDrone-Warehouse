@@ -1,10 +1,11 @@
-import Sidebar from "react-bootstrap-sidebar-menu";
+import Sidebar from 'react-bootstrap-sidebar-menu';
+import { isLoggedIn } from '../utils/processJwt';
 
 export default function SidebarMenu() {
-  const theme = "dark";
+  const theme = 'dark';
 
   return (
-    <Sidebar variant={theme} bg={theme} expand="sm">
+    <Sidebar variant={theme} bg={theme} expand='sm'>
       <Sidebar.Collapse>
         <Sidebar.Header>
           <Sidebar.Brand>FlexDrone Warehouse</Sidebar.Brand>
@@ -12,7 +13,7 @@ export default function SidebarMenu() {
         </Sidebar.Header>
         <Sidebar.Body>
           <Sidebar.Nav>
-            <Sidebar.Nav.Link href="/" eventKey="menu_title">
+            <Sidebar.Nav.Link href='/' eventKey='menu_title'>
               <Sidebar.Nav.Icon>1</Sidebar.Nav.Icon>
               <Sidebar.Nav.Title>Home</Sidebar.Nav.Title>
             </Sidebar.Nav.Link>
@@ -23,23 +24,23 @@ export default function SidebarMenu() {
               </Sidebar.Sub.Toggle>
               <Sidebar.Sub.Collapse>
                 <Sidebar.Nav>
-                  <Sidebar.Nav.Link href="/ViewUser" eventKey="menu_title">
+                  <Sidebar.Nav.Link href='/ViewUser' eventKey='menu_title'>
                     <Sidebar.Nav.Icon>1.1</Sidebar.Nav.Icon>
                     <Sidebar.Nav.Title>User Profile</Sidebar.Nav.Title>
                   </Sidebar.Nav.Link>
                 </Sidebar.Nav>
                 <Sidebar.Nav>
                   <Sidebar.Nav.Link
-                    href="/ChangePassword"
-                    eventKey="menu_title"
-                  >
+                    href='/ChangePassword'
+                    eventKey='menu_title'>
                     <Sidebar.Nav.Icon>1.2</Sidebar.Nav.Icon>
                     <Sidebar.Nav.Title>Change Password</Sidebar.Nav.Title>
                   </Sidebar.Nav.Link>
                 </Sidebar.Nav>
               </Sidebar.Sub.Collapse>
             </Sidebar.Sub>
-            <Sidebar.Nav.Link href="/Login" eventKey="menu_title">
+
+            <Sidebar.Nav.Link href='/Login' eventKey='menu_title'>
               <Sidebar.Nav.Icon>1</Sidebar.Nav.Icon>
               <Sidebar.Nav.Title>Login</Sidebar.Nav.Title>
             </Sidebar.Nav.Link>
