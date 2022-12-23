@@ -13,18 +13,24 @@ export default function SidebarMenu() {
         <Sidebar.Body>
           <Sidebar.Nav>
             <Sidebar.Nav.Link href="/" eventKey="menu_title">
-              <Sidebar.Nav.Icon>1</Sidebar.Nav.Icon>
+              <Sidebar.Nav.Icon>
+                <i class="bi bi-house-fill"></i>
+              </Sidebar.Nav.Icon>
               <Sidebar.Nav.Title>Home</Sidebar.Nav.Title>
             </Sidebar.Nav.Link>
             <Sidebar.Sub eventKey={0}>
               <Sidebar.Sub.Toggle>
-                <Sidebar.Nav.Icon />
+                <Sidebar.Nav.Icon>
+                  <i class="bi bi-person-fill"></i>
+                </Sidebar.Nav.Icon>
                 <Sidebar.Nav.Title>Account</Sidebar.Nav.Title>
               </Sidebar.Sub.Toggle>
               <Sidebar.Sub.Collapse>
                 <Sidebar.Nav>
                   <Sidebar.Nav.Link href="/ViewUser" eventKey="menu_title">
-                    <Sidebar.Nav.Icon>1.1</Sidebar.Nav.Icon>
+                    <Sidebar.Nav.Icon>
+                      <i class="bi bi-person-lines-fill"></i>
+                    </Sidebar.Nav.Icon>
                     <Sidebar.Nav.Title>User Profile</Sidebar.Nav.Title>
                   </Sidebar.Nav.Link>
                 </Sidebar.Nav>
@@ -33,7 +39,9 @@ export default function SidebarMenu() {
                     href="/ChangePassword"
                     eventKey="menu_title"
                   >
-                    <Sidebar.Nav.Icon>1.2</Sidebar.Nav.Icon>
+                    <Sidebar.Nav.Icon>
+                      <i class="bi bi-lock-fill"></i>
+                    </Sidebar.Nav.Icon>
                     <Sidebar.Nav.Title>Change Password</Sidebar.Nav.Title>
                   </Sidebar.Nav.Link>
                 </Sidebar.Nav>
